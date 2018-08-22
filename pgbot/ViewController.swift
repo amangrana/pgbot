@@ -13,8 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("hello world!!!!")
-        print(newBot())
     }
     
     func random(_ n:Int) -> Int
@@ -63,13 +61,20 @@ class ViewController: UIViewController {
             buildBox(view:view, number:i, input:title[i]+": "+content[i])
         }
     }
+    
+    func makeABot(view: UIView) {
+        var content = newBot()
+        let title = ["First City", "Phase 1", "Phase 2", "Phase 4", "Special"]
+        displayBot(view: view, title: title, content: content)
+    }
     override func loadView() {
         let view = UIView()
         view.backgroundColor = greenColor
-        
+        /*
         displayBot(view: view, title: ["First City", "Phase 1", "Phase 2", "Phase 4", "Special"],
                    content: ["Random 0", "Random 1", "Random 2", "Random 3", "Random 4"])
-        
+        */
+        makeABot(view:view)
         self.view = view
         
         
