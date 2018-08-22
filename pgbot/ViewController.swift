@@ -13,6 +13,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Create main view
+        let mainView = UIView()
+        mainView.backgroundColor = greenColor
+        
+        // Define a boundary to display a bot
+        let botBox = CGRect(x: 0, y: 0,
+                            width: UIScreen.main.bounds.width,
+                            height:UIScreen.main.bounds.height*0.8)
+        let botView = UIView(frame:botBox)
+        // Make a bot
+        makeABot(view:botView)
+        mainView.addSubview(botView)
+        
+        // Define a boundary to display a bot
+        let buttonsBox = CGRect(x: 0, y: UIScreen.main.bounds.height*0.8,
+                                width: UIScreen.main.bounds.width,
+                                height:UIScreen.main.bounds.height*0.2)
+        let buttonsView = UIView(frame:buttonsBox)
+        // Add buttons
+        addAButton(view:buttonsView)
+        mainView.addSubview(buttonsView)
+        
+        self.view = mainView
     }
     
     func random(_ n:Int) -> Int
@@ -40,13 +64,14 @@ class ViewController: UIViewController {
     let greenColor = UIColor(red: 0.2, green: 0.9, blue: 0.5, alpha: 1)
     let grayColor = UIColor(red:0.9, green:0.9, blue:0.9, alpha: 1)
     let blackColor = UIColor.black
+    let blueColor = UIColor.blue
     
     func buildBox(view:UIView, number:Int, input:String){
         let label = UILabel()
-        let loc = UIScreen.main.bounds.height / 5 * CGFloat(number)
+        let loc = view.bounds.height / 5 * CGFloat(number)
         label.frame = CGRect(x: 0, y: loc,
-                           width: UIScreen.main.bounds.width,
-                           height: UIScreen.main.bounds.height / 5)
+                           width: view.bounds.width,
+                           height: view.bounds.height / 5)
         print(input)
         label.text = input
         label.textColor = blackColor
@@ -63,20 +88,26 @@ class ViewController: UIViewController {
     }
     
     func makeABot(view: UIView) {
-        var content = newBot()
+        let content = newBot()
         let title = ["First City", "Phase 1", "Phase 2", "Phase 4", "Special"]
         displayBot(view: view, title: title, content: content)
     }
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = greenColor
-        /*
-        displayBot(view: view, title: ["First City", "Phase 1", "Phase 2", "Phase 4", "Special"],
-                   content: ["Random 0", "Random 1", "Random 2", "Random 3", "Random 4"])
-        */
-        makeABot(view:view)
-        self.view = view
+    
+    @IBAction func clickButton(sender: UIButton) {
+        print("Current Location button clicked!")
+    }
+    
+    func addAButton(view: UIView) {
+        let button = UIButton()
+        let size = min(view.bounds.width / 6, view.bounds.height)
+        button.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY,
+                              width: size,
+                              height: size)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = blackColor.cgColor
+        button.layer.backgroundColor = blueColor.cgColor
         
-        
+        //button.addTarget(self, action: Selector(), for: .touchDown)
+        view.addSubview(button)
     }
 }
